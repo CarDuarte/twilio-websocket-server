@@ -10,8 +10,10 @@ const wss = new WebSocketServer({ server, path: "/media-stream" });
 wss.on("connection", (ws, req) => {
   const parts = (req.url ?? "").split("/");
   const sessionId = parts[parts.length - 1]; // Last part of the path
+  console.log("Parts", parts)
 
   console.log("✅ Twilio stream connected with session:", sessionId);
+  
   (ws as any).sessionId = sessionId;
   
   if (!sessionId) {
