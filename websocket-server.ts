@@ -8,9 +8,11 @@ const server = http.createServer(app);
 const wss = new WebSocketServer({ server, path: "/media-stream" });
 
 wss.on("connection", (ws, req) => {
-  const sessionId = req.headers["x-twilio-stream-name"] as string;
+  const parts = (req.url ?? "").split("/");
+  const sessionId = parts[parts.length - 1]; // Last part of the path
 
-  console.log("SessionId", sessionId);
+  console.log("✅ Twilio stream connected with session:", sessionId);
+  (ws as any).sessionId = sessionId;
   
   if (!sessionId) {
     console.error("❌ Missing session ID in WebSocket URL.");
