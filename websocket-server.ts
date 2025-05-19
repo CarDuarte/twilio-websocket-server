@@ -8,6 +8,7 @@ const server = http.createServer(app);
 const wss = new WebSocketServer({ server, path: "/media-stream" });
 
 wss.on("connection", (ws, req) => {
+  console.log("Getting connection for the session");
   const parts = (req.url ?? "").split("/");
   const sessionId = parts[parts.length - 1]; // Last part of the path
   console.log("Parts", parts)
