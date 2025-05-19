@@ -1,0 +1,16 @@
+{
+  "name": "twilio-websocket-server",
+  "version": "1.0.0",
+  "main": "websocket-server.ts",
+  "type": "module",
+  "scripts": {
+    "start": "tsx websocket-server.ts"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "ws": "^8.13.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.0"
+  }
+}
