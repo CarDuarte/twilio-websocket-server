@@ -9,7 +9,7 @@ const wss = new WebSocketServer({ server, path: "/media-stream" });
 
 wss.on("connection", (ws, req) => {
   const url = new URL(req.url ?? "", `http://${req.headers.host}`);
-  conso.log(url);
+  console.log(url);
   const sessionId = url.searchParams.get("session");
 
   console.log("✅ Twilio stream connected with session:", sessionId);
