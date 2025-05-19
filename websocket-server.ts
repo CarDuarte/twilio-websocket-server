@@ -8,9 +8,13 @@ const server = http.createServer(app);
 const wss = new WebSocketServer({ server, path: "/media-stream" });
 
 wss.on("connection", (ws, req) => {
-  const params = new URLSearchParams(req.url?.split("?")[1]);
+  console.log("🔌 Incoming WebSocket connection:", req.url);
+  const fullUrl = req.url ?? "";
+  const params = new URLSearchParams(fullUrl.split("?")[1]);
   const sessionId = params.get("session");
 
+  console.log("🔗 Incoming WebSocket connection:", fullUrl);
+  
   if (!sessionId) {
     console.error("❌ Missing session ID in WebSocket URL.");
     ws.close();
@@ -73,9 +77,10 @@ async function sendTranscriptToSession(sessionId: string, message: string) {
     console.error("❌ Error sending message:", err);
   }
 }
-
-server.listen(3001, () => {
+const PORT = process.env.PORT || 3001;
+server.listen(PORT, () => {
+  console.log(`✅ WebSocket server listening on port ${PORT}`);
   console.log(
-    "✅ WebSocket server running at ws://localhost:3001/media-stream"
+    "✅ WebSocket server running at https://twilio-websocket-server-xziu.onrender.com/media-stream"
   );
 });
